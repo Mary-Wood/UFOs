@@ -22,3 +22,23 @@ function buildTable(data) {
     );
 });
 }
+
+//Here we want to be able to filter the data by date
+function handleClick() {
+    //This selects the datetime from the filter
+    let date = d3.select("datetime").property("value");
+    let filteredData  = tableData; 
+
+    //This checks if the date was entered and filters on that information
+    if (date) {
+        filteredData = filteredData.filter(row => row.datetime === date);
+    };
+
+    //Then the table is built or rebuilt with the filtered data 
+    //If no data then this should return all the data unfiltered. 
+    buildTable(filteredData);
+};
+
+d3.selectAll("#filter-btn").on("click", handleClick);
+
+buildTable(tableData);
